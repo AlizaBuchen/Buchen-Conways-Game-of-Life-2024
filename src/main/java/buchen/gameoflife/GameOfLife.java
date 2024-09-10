@@ -2,10 +2,10 @@ package buchen.gameoflife;
 
 public class GameOfLife {
     private final int[][] field;
-    private final int wasAlive = -1;
-    private final int alive = 1;
-    private final int dead = 0;
-    private final int wasDead = 2;
+    private static final int WAS_ALIVE = -1;
+    private static final int ALIVE = 1;
+    private static final int DEAD = 0;
+    private static final int WAS_DEAD = 2;
     //list all the 8 possible directions
     private final int[][] directions = {
             {1, 0}, //right neighbor
@@ -47,15 +47,15 @@ public class GameOfLife {
                     int rowX = x + direction[0];
                     int colY = y + direction[1];
                     if (rowX >= 0 && rowX < width && colY >= 0 && colY < height
-                            && Math.abs(field[rowX][colY]) == alive) {
+                            && Math.abs(field[rowX][colY]) == ALIVE) {
                         numAlive++;
                     }
                 }
-                if (field[x][y] == alive && (numAlive < 2 || numAlive > 3)) {
-                    field[x][y] = wasAlive;
+                if (field[x][y] == ALIVE && (numAlive < 2 || numAlive > 3)) {
+                    field[x][y] = WAS_ALIVE;
                 }
-                if (field[x][y] == dead && numAlive == 3) {
-                    field[x][y] = wasDead;
+                if (field[x][y] == DEAD && numAlive == 3) {
+                    field[x][y] = WAS_DEAD;
                 }
             }
         }
@@ -63,12 +63,12 @@ public class GameOfLife {
         //For loop to iterate over board again and make the changes.
         for (int y = 0; y < width; y++) {
             for (int x = 0; x < height; x++) {
-                if (field[x][y] == wasAlive)
+                if (field[x][y] == WAS_ALIVE)
                 {
-                    field[x][y] = dead;
-                } else if (field[x][y] == wasDead)
+                    field[x][y] = DEAD;
+                } else if (field[x][y] == WAS_DEAD)
                 {
-                    field[x][y] = alive;
+                    field[x][y] = ALIVE;
                 }
             }
         }
