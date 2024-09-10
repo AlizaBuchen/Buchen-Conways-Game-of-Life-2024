@@ -46,8 +46,8 @@ public class GameOfLife {
                 for (int[] direction : directions) {
                     int rowX = x + direction[0];
                     int colY = y + direction[1];
-                    if (rowX >= 0 && rowX < width && colY >= 0 && colY < height &&
-                            Math.abs(field[rowX][colY]) == alive) {
+                    if (rowX >= 0 && rowX < width && colY >= 0 && colY < height
+                            && Math.abs(field[rowX][colY]) == alive) {
                         numAlive++;
                     }
                 }
