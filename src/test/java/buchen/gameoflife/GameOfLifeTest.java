@@ -9,7 +9,7 @@ public class GameOfLifeTest {
     public void nextGen()
     {
         //given
-        GameOfLife board = new GameOfLife(5,5);
+        GameOfLife board = new GameOfLife(5, 5);
         board.put(0, 4);
         board.put(1, 2);
         board.put(1, 3);
