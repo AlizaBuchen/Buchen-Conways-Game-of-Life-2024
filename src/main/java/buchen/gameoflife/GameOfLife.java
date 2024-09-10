@@ -2,6 +2,10 @@ package buchen.gameoflife;
 
 public class GameOfLife {
     private final int[][] field;
+    private final int wasAlive = -1;
+    private final int alive = 1;
+    private final int dead = 0;
+    private final int wasDead =2;
     //list all the 8 possible directions
     private final int[][] directions = {
             {1, 0}, //right neighbor
@@ -34,36 +38,36 @@ public class GameOfLife {
     }
 
     public void nextGen() {
-        int row = field.length;
-        int col = field[0].length;
-        for (int y = 0; y < row; y++) {
-            for (int x = 0; x < col; x++) {
+        int width = field.length;
+        int height = field[0].length;
+        for (int y = 0; y < width; y++) {
+            for (int x = 0; x < height; x++) {
                 int numAlive = 0;
                 for (int[] direction : directions) {
                     int rowX = x + direction[0];
                     int colY = y + direction[1];
-                    if (rowX >= 0 && rowX < row && colY >= 0 && colY < col && Math.abs(field[rowX][colY]) == 1) {
+                    if (rowX >= 0 && rowX < width && colY >= 0 && colY < height && Math.abs(field[rowX][colY]) == alive) {
                         numAlive++;
                     }
                 }
-                if (field[x][y] == 1 && (numAlive < 2 || numAlive > 3)) {
-                    field[x][y] = -1; //-1 indicates that this cell was alive but is now dead
+                if (field[x][y] == alive && (numAlive < 2 || numAlive > 3)) {
+                    field[x][y] = wasAlive;
                 }
-                if (field[x][y] == 0 && numAlive == 3) {
-                    field[x][y] = 2; //2 indicates cell was dead and is now alive
+                if (field[x][y] == dead && numAlive == 3) {
+                    field[x][y] = wasDead;
                 }
             }
         }
 
         //For loop to iterate over board again and make the changes.
-        for (int y = 0; y < row; y++) {
-            for (int x = 0; x < col; x++) {
-                if (field[x][y] == 0 || field[x][y] == -1)
+        for (int y = 0; y < width; y++) {
+            for (int x = 0; x < height; x++) {
+                if (field[x][y] == wasAlive)
                 {
-                    field[x][y] = 0;
-                } else if (field[x][y] == 1 || field[x][y] == 2)
+                    field[x][y] = dead;
+                } else if (field[x][y] == wasDead)
                 {
-                    field[x][y] = 1;
+                    field[x][y] = alive;
                 }
             }
         }
