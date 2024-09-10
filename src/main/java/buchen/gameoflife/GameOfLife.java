@@ -61,8 +61,7 @@ public class GameOfLife {
                 if (field[x][y] == 0 || field[x][y] == -1)
                 {
                     field[x][y] = 0;
-                }
-                else if (field[x][y] == 1 || field[x][y] == 2)
+                } else if (field[x][y] == 1 || field[x][y] == 2)
                 {
                     field[x][y] = 1;
                 }
