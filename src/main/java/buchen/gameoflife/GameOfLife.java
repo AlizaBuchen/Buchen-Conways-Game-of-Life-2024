@@ -5,7 +5,7 @@ public class GameOfLife {
     private final int wasAlive = -1;
     private final int alive = 1;
     private final int dead = 0;
-    private final int wasDead =2;
+    private final int wasDead = 2;
     //list all the 8 possible directions
     private final int[][] directions = {
             {1, 0}, //right neighbor
@@ -46,7 +46,8 @@ public class GameOfLife {
                 for (int[] direction : directions) {
                     int rowX = x + direction[0];
                     int colY = y + direction[1];
-                    if (rowX >= 0 && rowX < width && colY >= 0 && colY < height && Math.abs(field[rowX][colY]) == alive) {
+                    if (rowX >= 0 && rowX < width && colY >= 0 && colY < height &&
+                            Math.abs(field[rowX][colY]) == alive) {
                         numAlive++;
                     }
                 }
