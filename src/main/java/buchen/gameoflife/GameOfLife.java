@@ -33,7 +33,9 @@ public class GameOfLife {
         return field.length;
     }
 
+
     public void clear() {
+
         for (int[] ints : field) {Arrays.fill(ints, 0);}
     }
 
@@ -45,7 +47,9 @@ public class GameOfLife {
         field[y][x] = 1;
     }
 
+
     public void remove(int x, int y) {
+
         field[y][x] = 0;
     }
 

@@ -10,6 +10,7 @@ public class GameOfLifeComponent extends JComponent {
 
     private final GameOfLife board;
 
+
     public GameOfLifeComponent(GameOfLife board) {
 
         this.board = board;
