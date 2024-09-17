@@ -33,12 +33,6 @@ public class GameOfLife {
         return field.length;
     }
 
-
-    public void clear() {
-
-        for (int[] ints : field) {Arrays.fill(ints, 0);}
-    }
-
     public boolean isAlive(int x, int y) {
         return field[y][x] == 1;
     }
@@ -47,6 +41,11 @@ public class GameOfLife {
         field[y][x] = 1;
     }
 
+    public void clear() {
+        for (int[] ints : field) {
+            Arrays.fill(ints, 0);
+        }
+    }
 
     public void remove(int x, int y) {
 
