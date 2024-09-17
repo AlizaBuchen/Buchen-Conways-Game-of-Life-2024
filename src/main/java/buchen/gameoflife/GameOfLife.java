@@ -1,5 +1,7 @@
 package buchen.gameoflife;
 
+import java.util.Arrays;
+
 public class GameOfLife {
     private final int[][] field;
     private static final int WAS_ALIVE = -1;
@@ -22,9 +24,29 @@ public class GameOfLife {
         field = new int[height][width];
     }
 
-    public void put(int x, int y) {
-        field[x][y] = 1;
+
+    public int getWidth() {
+        return field[0].length;
     }
+
+    public int getHeight() {
+        return field.length;
+    }
+    public void clear() {
+        for (int[] ints : field) Arrays.fill(ints, 0);
+    }
+
+    public boolean isAlive(int x, int y) {
+        return field[y][x] == 1;
+    }
+
+    public void put(int x, int y) {
+        field[y][x] = 1;
+    }
+    public void remove(int x, int y) {
+        field[y][x] = 0;
+    }
+
 
     public String toString() {
         StringBuilder builder = new StringBuilder();

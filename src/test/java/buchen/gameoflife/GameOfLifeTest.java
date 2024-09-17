@@ -16,6 +16,6 @@ public class GameOfLifeTest {
         //when
         board.nextGen();
         //then
-        assertEquals("00010\n00010\n00010\n00000\n00000\n", board.toString());
+        assertEquals("00000\n00000\n00000\n11100\n00000\n", board.toString());
     }
 }
