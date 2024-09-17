@@ -32,8 +32,9 @@ public class GameOfLife {
     public int getHeight() {
         return field.length;
     }
+
     public void clear() {
-        for (int[] ints : field) Arrays.fill(ints, 0);
+        for (int[] ints : field) {Arrays.fill(ints, 0);}
     }
 
     public boolean isAlive(int x, int y) {
@@ -43,6 +44,7 @@ public class GameOfLife {
     public void put(int x, int y) {
         field[y][x] = 1;
     }
+
     public void remove(int x, int y) {
         field[y][x] = 0;
     }

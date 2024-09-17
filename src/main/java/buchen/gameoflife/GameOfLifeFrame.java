@@ -22,13 +22,13 @@ public class GameOfLifeFrame extends JFrame {
     });
 
     public GameOfLifeFrame() {
-        setSize(800,800);
+        setSize(800, 800);
         setTitle("Game Of Life");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
 
-        board = new GameOfLife(50,50);
+        board = new GameOfLife(50, 50);
         GameOfLifeComponent gameOfLifeComponent = new GameOfLifeComponent(board);
 
         add(gameOfLifeComponent, BorderLayout.CENTER);
