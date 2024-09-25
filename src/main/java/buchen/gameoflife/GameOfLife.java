@@ -100,6 +100,7 @@ public class GameOfLife {
             }
         }
     }
+
     public void loadFromRle(String rle) {
         RleParser decoder = new RleParser(this);
         decoder.decodeRle(rle);

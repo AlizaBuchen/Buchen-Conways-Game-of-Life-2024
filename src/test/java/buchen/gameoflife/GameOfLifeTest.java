@@ -18,6 +18,7 @@ public class GameOfLifeTest {
         //then
         assertEquals("00000\n00000\n00000\n11100\n00000\n", board.toString());
     }
+
     @Test
     public void loadFromRle() {
         //given
