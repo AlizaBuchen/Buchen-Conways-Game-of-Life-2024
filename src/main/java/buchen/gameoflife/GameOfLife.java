@@ -101,12 +101,12 @@ public class GameOfLife {
         }
     }
 
+    public void resize(int width, int height) {
+        field = new int[height][width];
+    }
+
     public void loadFromRle(String rle) {
         RleParser decoder = new RleParser(this);
         decoder.decodeRle(rle);
-    }
-
-    public void resize(int width, int height) {
-        field = new int[height][width];
     }
 }
