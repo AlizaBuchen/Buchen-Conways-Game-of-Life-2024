@@ -3,7 +3,7 @@ package buchen.gameoflife;
 import java.util.Arrays;
 
 public class GameOfLife {
-    private final int[][] field;
+    private int[][] field;
     private static final int WAS_ALIVE = -1;
     private static final int ALIVE = 1;
     private static final int DEAD = 0;
@@ -99,5 +99,13 @@ public class GameOfLife {
                 }
             }
         }
+    }
+    public void loadFromRle(String rle) {
+        RleParser decoder = new RleParser(this);
+        decoder.decodeRle(rle);
+    }
+
+    public void resize(int width, int height) {
+        field = new int[height][width];
     }
 }
