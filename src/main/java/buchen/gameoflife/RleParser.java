@@ -1,5 +1,14 @@
 package buchen.gameoflife;
 
+import org.apache.commons.io.IOUtils;
+
+import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.*;
+import java.net.URL;
+
+
 public class RleParser {
     private final GameOfLife game;
 
@@ -25,15 +34,15 @@ public class RleParser {
                 for (String part : parts) {
                     String[] keyValue = part.split("=");
                     String key = keyValue[0].trim();
+                    if (key.equals("rule")) { break; }
                     int value = Integer.parseInt(keyValue[1].trim());
                     if (key.equals("x")) {
-                        width = value;
+                        width = Math.max(value, 100);
                     } else if (key.equals("y")) {
-                        height = value;
+                        height = Math.max(value, 100);
                     }
                 }
                 game.resize(width, height);
-                continue;
             }
             decodePattern(line, row, col);
         }
@@ -80,5 +89,32 @@ public class RleParser {
                 count = 0;
             }
         }
+    }
+
+    public void loadFromClipboard() {
+        String rleData = null;
+        try {
+            rleData = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
+        } catch (UnsupportedFlavorException | IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+        if (rleData.startsWith("http://") || rleData.startsWith("https://")) {
+            try (InputStream inputStream = new URL(rleData).openStream()) {
+                rleData = IOUtils.toString(inputStream, "UTF-8");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            File file = new File(rleData);
+            if (file.exists() && file.isFile()) {
+                try (FileInputStream fis = new FileInputStream(file)) {
+                    rleData = IOUtils.toString(fis, "UTF-8");
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
+        game.loadFromRle(rleData);
     }
 }

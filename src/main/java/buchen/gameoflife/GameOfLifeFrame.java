@@ -2,8 +2,11 @@ package buchen.gameoflife;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 public class GameOfLifeFrame extends JFrame {
     //unicode for play button \u25B6
@@ -28,7 +31,7 @@ public class GameOfLifeFrame extends JFrame {
 
         setLayout(new BorderLayout());
 
-        board = new GameOfLife(50, 50);
+        board = new GameOfLife(100, 100);
         GameOfLifeComponent gameOfLifeComponent = new GameOfLifeComponent(board);
 
         add(gameOfLifeComponent, BorderLayout.CENTER);
@@ -36,11 +39,13 @@ public class GameOfLifeFrame extends JFrame {
         JButton nextGen = new JButton("Next");
         JButton play = new JButton(PLAY_BUTTON);
         JButton clear = new JButton("Clear");
+        JButton paste = new JButton("Paste");
 
         JPanel actionBar = new JPanel(new BorderLayout());
         actionBar.add(nextGen, BorderLayout.WEST);
         actionBar.add(play, BorderLayout.CENTER);
         actionBar.add(clear, BorderLayout.EAST);
+        actionBar.add(paste, BorderLayout.SOUTH);
         add(actionBar, BorderLayout.SOUTH);
 
 
@@ -67,5 +72,11 @@ public class GameOfLifeFrame extends JFrame {
             gameStatus = true;
             play.setText(PLAY_BUTTON);
         });
+
+        paste.addActionListener(e -> {
+            RleParser decoder = new RleParser(board);
+            decoder.loadFromClipboard();
+        });
+
     }
 }
