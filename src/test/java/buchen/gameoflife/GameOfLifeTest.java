@@ -42,7 +42,7 @@ public class GameOfLifeTest {
     @Test
     public void clipboardRleString() throws IOException, UnsupportedFlavorException {
         //given
-        GameOfLife board = new GameOfLife(100,100);
+        GameOfLife board = new GameOfLife(100, 100);
         String rleData = """
             #C This is a glider.
             x = 3, y = 3
