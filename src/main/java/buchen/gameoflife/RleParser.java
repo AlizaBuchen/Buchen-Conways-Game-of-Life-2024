@@ -34,8 +34,7 @@ public class RleParser {
                 for (String part : parts) {
                     String[] keyValue = part.split("=");
                     String key = keyValue[0].trim();
-                    if (key.equals("rule"))
-                        break;
+                    if (key.equals("rule")) { break; }
                     int value = Integer.parseInt(keyValue[1].trim());
                     if (key.equals("x")) {
                         width = Math.max(value, 100);
