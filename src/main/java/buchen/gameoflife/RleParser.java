@@ -21,7 +21,8 @@ public class RleParser {
 
         int row = 0;
         int col = 0;
-        int width = 0, height = 0;
+        int width = 0;
+        int height = 0;
         for (String line : lines) {
             line = line.trim();
             if (line.isEmpty() || line.startsWith("#")) {
@@ -33,15 +34,12 @@ public class RleParser {
                 for (String part : parts) {
                     String[] keyValue = part.split("=");
                     String key = keyValue[0].trim();
-                    if(key.equals("rule"))
-                    {
+                    if (key.equals("rule"))
                         break;
-                    }
                     int value = Integer.parseInt(keyValue[1].trim());
                     if (key.equals("x")) {
                         width = Math.max(value, 100);
-                    }
-                    else if (key.equals("y")) {
+                    } else if (key.equals("y")) {
                         height = Math.max(value, 100);
                     }
                 }
@@ -103,7 +101,7 @@ public class RleParser {
         }
 
         if (rleData.startsWith("http://") || rleData.startsWith("https://")) {
-            try (InputStream inputStream = new URL(rleData).openStream()){
+            try (InputStream inputStream = new URL(rleData).openStream()) {
                 rleData = IOUtils.toString(inputStream, "UTF-8");
             } catch (IOException e) {
                 throw new RuntimeException(e);
