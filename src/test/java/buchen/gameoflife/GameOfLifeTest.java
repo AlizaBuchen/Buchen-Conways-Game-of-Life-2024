@@ -7,9 +7,14 @@ import org.mockito.Mockito;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class GameOfLifeTest {
@@ -17,7 +22,7 @@ public class GameOfLifeTest {
 
     @BeforeEach
     public void setup() {
-        clipboard = Mockito.mock(Clipboard.class);
+        clipboard = mock(Clipboard.class);
     }
 
     @Test
@@ -43,16 +48,16 @@ public class GameOfLifeTest {
             x = 3, y = 3
             bo$2bo$3o!
         """;
+        when(clipboard.getData(DataFlavor.stringFlavor)).thenReturn(rleData);
 
         //when
-        when(clipboard.getData(DataFlavor.stringFlavor)).thenReturn(rleData);
         board.loadFromRle(rleData);
 
         //then
-        assertEquals(true, board.isAlive(1,0));
-        assertEquals(true, board.isAlive(2,1));
-        assertEquals(true, board.isAlive(2,2));
-        assertEquals(true, board.isAlive(1,2));
-        assertEquals(true, board.isAlive(0,2));
+        assertTrue(board.isAlive(1, 0));
+        assertTrue(board.isAlive(2, 1));
+        assertTrue(board.isAlive(2, 2));
+        assertTrue(board.isAlive(1, 2));
+        assertTrue(board.isAlive(0, 2));
     }
 }
