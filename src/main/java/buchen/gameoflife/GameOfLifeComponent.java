@@ -21,7 +21,7 @@ public class GameOfLifeComponent extends JComponent {
             public void mouseClicked(MouseEvent e) {
                 int x = e.getX();
                 int y = e.getY();
-                controller.toggleCell(x,y);
+                controller.toggleCell(x, y);
                 repaint();
             }
 
@@ -42,6 +42,7 @@ public class GameOfLifeComponent extends JComponent {
     public void setController(GameOfLifeController controller) { // Setter for controller
         this.controller = controller;
     }
+
     public int getCellSize() {
         return CELL_SIZE;
     }

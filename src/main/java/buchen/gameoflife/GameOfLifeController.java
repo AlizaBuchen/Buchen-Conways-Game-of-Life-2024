@@ -26,6 +26,7 @@ public class GameOfLifeController {
     public void stopTimer() {
         timer.stop();
     }
+
     public void paste() {
         String rleData = parser.loadFromClipboard();
         if (rleData != null && !rleData.isEmpty()) {
