@@ -38,7 +38,7 @@ public class GameOfLifeComponentTest {
         controller.toggleCell(50, 100);
 
         //then
-        verify(model).put(5,10);
+        verify(model).put(5, 10);
         verify(view).repaint();
     }
 
@@ -60,7 +60,7 @@ public class GameOfLifeComponentTest {
         controller.toggleCell(50, 100);
 
         //then
-        verify(model).remove(5,10);
+        verify(model).remove(5, 10);
         verify(view).repaint();
     }
 

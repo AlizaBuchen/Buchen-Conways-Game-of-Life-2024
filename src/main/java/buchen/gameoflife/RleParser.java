@@ -22,12 +22,6 @@ public class RleParser {
         int patternWidth = 0;
         int patternHeight = 0;
 
-
-//        int row = 0;
-//        int col = 0;
-//        int width = 0;
-//        int height = 0;
-
         for (String line : lines) {
             line = line.trim();
             if (line.isEmpty() || line.startsWith("#")) {
@@ -51,8 +45,8 @@ public class RleParser {
                 game.resize(Math.max(patternWidth, 100), Math.max(patternHeight, 100));
                 continue;
             }
-            int startWidth = (game.getWidth() - patternWidth) /2;
-            int startHeight = (game.getHeight() - patternHeight) /2;
+            int startWidth = (game.getWidth() - patternWidth) / 2;
+            int startHeight = (game.getHeight() - patternHeight) / 2;
             decodePattern(line, startWidth, startHeight);
         }
     }
