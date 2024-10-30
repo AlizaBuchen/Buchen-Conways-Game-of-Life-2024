@@ -2,13 +2,6 @@ package buchen.gameoflife;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.Transferable;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
 
 public class GameOfLifeFrame extends JFrame {
     //unicode for play button \u25B6
@@ -18,13 +11,6 @@ public class GameOfLifeFrame extends JFrame {
     //use gameStatus to toggle between the play and pause button symbol
     private boolean gameStatus = true;
     private final GameOfLifeController controller;
-//    private final GameOfLife board;
-//    Timer timer = new Timer(1000, new ActionListener() {
-//        @Override
-//        public void actionPerformed(ActionEvent e) {
-//            board.nextGen();
-//        }
-//    });
 
     public GameOfLifeFrame() {
         setSize(1500, 1500);
@@ -37,9 +23,7 @@ public class GameOfLifeFrame extends JFrame {
         GameOfLifeComponent gameOfLifeComponent = new GameOfLifeComponent(board);
 
         controller = new GameOfLifeController(board, gameOfLifeComponent);
-
-//        RleParser parser = new RleParser(board);
-//        GameOfLifeController controller = new GameOfLifeController(board, gameOfLifeComponent);
+        gameOfLifeComponent.setController(controller);
 
         add(gameOfLifeComponent, BorderLayout.CENTER);
 
@@ -57,8 +41,7 @@ public class GameOfLifeFrame extends JFrame {
 
 
         nextGen.addActionListener(e -> {
-//            controller.nextGeneration();
-            board.nextGen();
+            controller.nextGen();
             gameStatus = true;
             play.setText(PLAY_BUTTON);
         });
@@ -76,28 +59,12 @@ public class GameOfLifeFrame extends JFrame {
         });
 
         clear.addActionListener(e -> {
-            // controller.clear();
-            board.clear();
+            controller.clear();
             gameStatus = true;
             play.setText(PLAY_BUTTON);
         });
 
-        paste.addActionListener(e -> {
-            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-//            String data = null;
-            if(clipboard.isDataFlavorAvailable(DataFlavor.stringFlavor))
-            {
-                Transferable transferable = clipboard.getContents(null);
-                if(transferable != null) {
-//                    try {
-//                        data = (String) transferable.getTransferData(DataFlavor.stringFlavor);
-//                    } catch (Exception ex) {
-//                        ex.printStackTrace();
-//                    }
-                }
-            }
-            controller.paste();
-        });
+        paste.addActionListener(e -> controller.paste());
 
     }
 }

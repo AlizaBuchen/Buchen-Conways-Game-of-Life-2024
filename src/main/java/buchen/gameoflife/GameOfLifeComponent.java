@@ -9,27 +9,19 @@ import java.awt.event.MouseListener;
 public class GameOfLifeComponent extends JComponent {
 
     private final GameOfLife board;
+    private GameOfLifeController controller;
     private final int CELL_SIZE = 20;
 
     public GameOfLifeComponent(GameOfLife board) {
         this.board = board;
-//        GameOfLifeController controller = new GameOfLifeController(board);
 
         addMouseListener(new MouseListener() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                int x = e.getX() / CELL_SIZE;
-                int y = e.getY() / CELL_SIZE;
-//                int x = e.getX();
-//                int y = e.getY();
-
-                if (!board.isAlive(x, y)) {
-                    board.put(x, y);
-                } else {
-                    board.remove(x, y);
-                }
-//                controller.toggleCell(x,y);
+                int x = e.getX();
+                int y = e.getY();
+                controller.toggleCell(x,y);
                 repaint();
             }
 
@@ -47,6 +39,9 @@ public class GameOfLifeComponent extends JComponent {
         });
     }
 
+    public void setController(GameOfLifeController controller) { // Setter for controller
+        this.controller = controller;
+    }
     public int getCellSize() {
         return CELL_SIZE;
     }
@@ -66,6 +61,5 @@ public class GameOfLifeComponent extends JComponent {
                 }
             }
         }
-//        repaint();
     }
 }

@@ -63,30 +63,24 @@ public class RleParser {
                     count = 1;
                 }
                 switch (c) {
-                    case 'b': // Dead cells
-                        col += count;
-                        break;
-
-                    case 'o': // Live cells
+                    case 'b' -> // Dead cells
+                            col += count;
+                    case 'o' -> { // Live cells
                         for (int j = 0; j < count; j++) {
                             if (row < game.getHeight() && col < game.getWidth()) {
                                 game.put(col, row);
                             }
                             col++;
                         }
-                        break;
-
-                    case '$': // New line
+                    }
+                    case '$' -> { // New line
                         row += count;
                         col = 0;
-                        break;
-
-                    case '!': // End of RLE data
+                    }
+                    case '!' -> { // End of RLE data
                         return;
-
-                    default:
-                        System.out.println("Invalid character: " + c);
-                        break;
+                    }
+                    default -> System.out.println("Invalid character: " + c);
                 }
                 count = 0;
             }
@@ -94,7 +88,7 @@ public class RleParser {
     }
 
     public String loadFromClipboard() {
-        String rleData = null;
+        String rleData;
         try {
             rleData = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
         } catch (UnsupportedFlavorException | IOException ex) {

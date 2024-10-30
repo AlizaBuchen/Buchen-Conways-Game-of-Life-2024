@@ -1,8 +1,6 @@
 package buchen.gameoflife;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GameOfLifeController {
 
@@ -15,12 +13,9 @@ public class GameOfLifeController {
         this.model = model;
         this.view = view;
         this.parser = new RleParser(model);
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                model.nextGen();
-                view.repaint();
-            }
+        timer = new Timer(1000, e -> {
+            model.nextGen();
+            view.repaint();
         });
     }
 
@@ -34,7 +29,6 @@ public class GameOfLifeController {
     public void paste() {
         String rleData = parser.loadFromClipboard();
         if (rleData != null && !rleData.isEmpty()) {
-            System.out.println("Pasting RLE Data: " + rleData); // Debug output
             model.loadFromRle(rleData); // Load RLE data into the model
             view.repaint(); // Repaint the view after loading
         } else {
@@ -50,6 +44,16 @@ public class GameOfLifeController {
         } else {
             model.put(positionX, positionY);
         }
+        view.repaint();
+    }
+
+    public void clear() {
+        model.clear();
+        view.repaint();
+    }
+
+    public void nextGen() {
+        model.nextGen();
         view.repaint();
     }
 
