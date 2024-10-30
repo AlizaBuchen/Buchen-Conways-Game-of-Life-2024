@@ -19,7 +19,7 @@ public class GameOfLifeComponent extends JComponent {
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                controller.toggleCell(e.getX(), e.getY()); // Toggle cell state at the mouse position
+                controller.toggleCell(e.getX(), e.getY());
             }
         });
 
@@ -47,12 +47,12 @@ public class GameOfLifeComponent extends JComponent {
         });
     }
 
-    public int getCellSize() {
-        return CELL_SIZE;
+    public void setController(GameOfLifeController controller) {
+        this.controller = controller;
     }
 
-    public void setController(GameOfLifeController controller) { // Setter for controller
-        this.controller = controller;
+    public int getCellSize() {
+        return CELL_SIZE;
     }
 
     @Override

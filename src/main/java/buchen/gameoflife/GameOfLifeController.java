@@ -30,8 +30,8 @@ public class GameOfLifeController {
     public void paste() {
         String rleData = parser.loadFromClipboard();
         if (rleData != null && !rleData.isEmpty()) {
-            model.loadFromRle(rleData); // Load RLE data into the model
-            view.repaint(); // Repaint the view after loading
+            model.loadFromRle(rleData);
+            view.repaint();
         } else {
             JOptionPane.showMessageDialog(view, "No RLE data found in clipboard.");
         }

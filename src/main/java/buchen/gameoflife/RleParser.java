@@ -19,10 +19,14 @@ public class RleParser {
     public void decodeRle(String rle) {
         String[] lines = rle.split("\n");
 
-        int row = 0;
-        int col = 0;
-        int width = 0;
-        int height = 0;
+        int patternWidth = 0;
+        int patternHeight = 0;
+
+
+//        int row = 0;
+//        int col = 0;
+//        int width = 0;
+//        int height = 0;
 
         for (String line : lines) {
             line = line.trim();
@@ -35,18 +39,21 @@ public class RleParser {
                 for (String part : parts) {
                     String[] keyValue = part.split("=");
                     String key = keyValue[0].trim();
-                    if (key.equals("rule")) { break; }
                     int value = Integer.parseInt(keyValue[1].trim());
+
+                    if (key.equals("rule")) { break; }
                     if (key.equals("x")) {
-                        width = Math.max(value, 100);
+                        patternWidth = Math.max(value, 100);
                     } else if (key.equals("y")) {
-                        height = Math.max(value, 100);
+                        patternHeight = Math.max(value, 100);
                     }
                 }
-                game.resize(width, height);
+                game.resize(Math.max(patternWidth, 100), Math.max(patternHeight, 100));
                 continue;
             }
-            decodePattern(line, row, col);
+            int startWidth = (game.getWidth() - patternWidth) /2;
+            int startHeight = (game.getHeight() - patternHeight) /2;
+            decodePattern(line, startWidth, startHeight);
         }
     }
 
