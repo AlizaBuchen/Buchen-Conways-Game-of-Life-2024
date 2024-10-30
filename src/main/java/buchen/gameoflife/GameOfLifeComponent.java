@@ -4,16 +4,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 
 
 public class GameOfLifeComponent extends JComponent {
 
     private final GameOfLife board;
     private GameOfLifeController controller;
-    private final int CELL_SIZE = 20;
+    private static final int CELL_SIZE = 20;
 
     public GameOfLifeComponent(GameOfLife board) {
         this.board = board;
+
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                controller.toggleCell(e.getX(), e.getY()); // Toggle cell state at the mouse position
+            }
+        });
 
         addMouseListener(new MouseListener() {
 
@@ -39,12 +47,12 @@ public class GameOfLifeComponent extends JComponent {
         });
     }
 
-    public void setController(GameOfLifeController controller) { // Setter for controller
-        this.controller = controller;
-    }
-
     public int getCellSize() {
         return CELL_SIZE;
+    }
+
+    public void setController(GameOfLifeController controller) { // Setter for controller
+        this.controller = controller;
     }
 
     @Override
