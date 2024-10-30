@@ -9,21 +9,28 @@ import java.awt.event.MouseListener;
 public class GameOfLifeComponent extends JComponent {
 
     private final GameOfLife board;
+    private final int CELL_SIZE = 20;
 
     public GameOfLifeComponent(GameOfLife board) {
         this.board = board;
+//        GameOfLifeController controller = new GameOfLifeController(board);
+
         addMouseListener(new MouseListener() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                int x = e.getX() / 20;
-                int y = e.getY() / 20;
+                int x = e.getX() / CELL_SIZE;
+                int y = e.getY() / CELL_SIZE;
+//                int x = e.getX();
+//                int y = e.getY();
 
                 if (!board.isAlive(x, y)) {
                     board.put(x, y);
                 } else {
                     board.remove(x, y);
                 }
+//                controller.toggleCell(x,y);
+                repaint();
             }
 
             @Override
@@ -40,6 +47,10 @@ public class GameOfLifeComponent extends JComponent {
         });
     }
 
+    public int getCellSize() {
+        return CELL_SIZE;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -51,10 +62,10 @@ public class GameOfLifeComponent extends JComponent {
             for (int x = 0; x < board.getWidth(); x++) {
                 if (board.isAlive(x, y)) {
                     g.setColor(Color.BLACK);
-                    g.fillRect(x * 20, y * 20, 20, 20);
+                    g.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 }
             }
         }
-        repaint();
+//        repaint();
     }
 }

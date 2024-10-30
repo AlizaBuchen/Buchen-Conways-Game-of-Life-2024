@@ -23,6 +23,7 @@ public class RleParser {
         int col = 0;
         int width = 0;
         int height = 0;
+
         for (String line : lines) {
             line = line.trim();
             if (line.isEmpty() || line.startsWith("#")) {
@@ -43,6 +44,7 @@ public class RleParser {
                     }
                 }
                 game.resize(width, height);
+                continue;
             }
             decodePattern(line, row, col);
         }
@@ -91,7 +93,7 @@ public class RleParser {
         }
     }
 
-    public void loadFromClipboard() {
+    public String loadFromClipboard() {
         String rleData = null;
         try {
             rleData = (String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor);
@@ -116,5 +118,6 @@ public class RleParser {
             }
         }
         game.loadFromRle(rleData);
+        return rleData;
     }
 }

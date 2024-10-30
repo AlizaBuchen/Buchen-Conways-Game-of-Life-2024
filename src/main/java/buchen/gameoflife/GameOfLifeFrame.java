@@ -2,7 +2,9 @@ package buchen.gameoflife;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,24 +17,29 @@ public class GameOfLifeFrame extends JFrame {
     private static final String STOP_BUTTON = "⏸";
     //use gameStatus to toggle between the play and pause button symbol
     private boolean gameStatus = true;
-    private final GameOfLife board;
-
-    Timer timer = new Timer(1000, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            board.nextGen();
-        }
-    });
+    private final GameOfLifeController controller;
+//    private final GameOfLife board;
+//    Timer timer = new Timer(1000, new ActionListener() {
+//        @Override
+//        public void actionPerformed(ActionEvent e) {
+//            board.nextGen();
+//        }
+//    });
 
     public GameOfLifeFrame() {
-        setSize(800, 800);
+        setSize(1500, 1500);
         setTitle("Game Of Life");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
 
-        board = new GameOfLife(100, 100);
+        GameOfLife board = new GameOfLife(100, 100);
         GameOfLifeComponent gameOfLifeComponent = new GameOfLifeComponent(board);
+
+        controller = new GameOfLifeController(board, gameOfLifeComponent);
+
+//        RleParser parser = new RleParser(board);
+//        GameOfLifeController controller = new GameOfLifeController(board, gameOfLifeComponent);
 
         add(gameOfLifeComponent, BorderLayout.CENTER);
 
@@ -50,6 +57,7 @@ public class GameOfLifeFrame extends JFrame {
 
 
         nextGen.addActionListener(e -> {
+//            controller.nextGeneration();
             board.nextGen();
             gameStatus = true;
             play.setText(PLAY_BUTTON);
@@ -57,25 +65,38 @@ public class GameOfLifeFrame extends JFrame {
 
         play.addActionListener(e -> {
             if (gameStatus) {
-                timer.start();
+                controller.startTimer();
                 gameStatus = false;
                 play.setText(STOP_BUTTON);
             } else {
-                timer.stop();
+                controller.stopTimer();
                 gameStatus = true;
                 play.setText(PLAY_BUTTON);
             }
         });
 
         clear.addActionListener(e -> {
+            // controller.clear();
             board.clear();
             gameStatus = true;
             play.setText(PLAY_BUTTON);
         });
 
         paste.addActionListener(e -> {
-            RleParser decoder = new RleParser(board);
-            decoder.loadFromClipboard();
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+//            String data = null;
+            if(clipboard.isDataFlavorAvailable(DataFlavor.stringFlavor))
+            {
+                Transferable transferable = clipboard.getContents(null);
+                if(transferable != null) {
+//                    try {
+//                        data = (String) transferable.getTransferData(DataFlavor.stringFlavor);
+//                    } catch (Exception ex) {
+//                        ex.printStackTrace();
+//                    }
+                }
+            }
+            controller.paste();
         });
 
     }

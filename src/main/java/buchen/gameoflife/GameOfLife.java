@@ -23,6 +23,14 @@ public class GameOfLife {
     public GameOfLife(int width, int height) {
         field = new int[height][width];
     }
+//
+//    public GameOfLife(int[][] size) {
+//        field = size;
+//    }
+//
+//    public int[][] getSize() {
+//        return field;
+//    }
 
 
     public int getWidth() {
