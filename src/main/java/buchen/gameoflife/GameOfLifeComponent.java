@@ -4,26 +4,33 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionAdapter;
 
 
 public class GameOfLifeComponent extends JComponent {
 
     private final GameOfLife board;
+    private GameOfLifeController controller;
+    private static final int CELL_SIZE = 20;
 
     public GameOfLifeComponent(GameOfLife board) {
         this.board = board;
+
+        addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                controller.toggleCell(e.getX(), e.getY());
+            }
+        });
+
         addMouseListener(new MouseListener() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                int x = e.getX() / 20;
-                int y = e.getY() / 20;
-
-                if (!board.isAlive(x, y)) {
-                    board.put(x, y);
-                } else {
-                    board.remove(x, y);
-                }
+                int x = e.getX();
+                int y = e.getY();
+                controller.toggleCell(x, y);
+                repaint();
             }
 
             @Override
@@ -40,6 +47,14 @@ public class GameOfLifeComponent extends JComponent {
         });
     }
 
+    public void setController(GameOfLifeController controller) {
+        this.controller = controller;
+    }
+
+    public int getCellSize() {
+        return CELL_SIZE;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -51,10 +66,9 @@ public class GameOfLifeComponent extends JComponent {
             for (int x = 0; x < board.getWidth(); x++) {
                 if (board.isAlive(x, y)) {
                     g.setColor(Color.BLACK);
-                    g.fillRect(x * 20, y * 20, 20, 20);
+                    g.fillRect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 }
             }
         }
-        repaint();
     }
 }

@@ -2,8 +2,6 @@ package buchen.gameoflife;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GameOfLifeFrame extends JFrame {
     //unicode for play button \u25B6
@@ -12,60 +10,61 @@ public class GameOfLifeFrame extends JFrame {
     private static final String STOP_BUTTON = "⏸";
     //use gameStatus to toggle between the play and pause button symbol
     private boolean gameStatus = true;
-    private final GameOfLife board;
-
-    Timer timer = new Timer(1000, new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            board.nextGen();
-        }
-    });
+    private final GameOfLifeController controller;
 
     public GameOfLifeFrame() {
-        setSize(800, 800);
+        setSize(1500, 1500);
         setTitle("Game Of Life");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setLayout(new BorderLayout());
 
-        board = new GameOfLife(50, 50);
+        GameOfLife board = new GameOfLife(100, 100);
         GameOfLifeComponent gameOfLifeComponent = new GameOfLifeComponent(board);
+
+        controller = new GameOfLifeController(board, gameOfLifeComponent);
+        gameOfLifeComponent.setController(controller);
 
         add(gameOfLifeComponent, BorderLayout.CENTER);
 
         JButton nextGen = new JButton("Next");
         JButton play = new JButton(PLAY_BUTTON);
         JButton clear = new JButton("Clear");
+        JButton paste = new JButton("Paste");
 
         JPanel actionBar = new JPanel(new BorderLayout());
         actionBar.add(nextGen, BorderLayout.WEST);
         actionBar.add(play, BorderLayout.CENTER);
         actionBar.add(clear, BorderLayout.EAST);
+        actionBar.add(paste, BorderLayout.SOUTH);
         add(actionBar, BorderLayout.SOUTH);
 
 
         nextGen.addActionListener(e -> {
-            board.nextGen();
+            controller.nextGen();
             gameStatus = true;
             play.setText(PLAY_BUTTON);
         });
 
         play.addActionListener(e -> {
             if (gameStatus) {
-                timer.start();
+                controller.startTimer();
                 gameStatus = false;
                 play.setText(STOP_BUTTON);
             } else {
-                timer.stop();
+                controller.stopTimer();
                 gameStatus = true;
                 play.setText(PLAY_BUTTON);
             }
         });
 
         clear.addActionListener(e -> {
-            board.clear();
+            controller.clear();
             gameStatus = true;
             play.setText(PLAY_BUTTON);
         });
+
+        paste.addActionListener(e -> controller.paste());
+
     }
 }

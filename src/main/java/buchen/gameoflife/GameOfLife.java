@@ -24,7 +24,6 @@ public class GameOfLife {
         field = new int[height][width];
     }
 
-
     public int getWidth() {
         return field[0].length;
     }
@@ -51,7 +50,6 @@ public class GameOfLife {
 
         field[y][x] = 0;
     }
-
 
     public String toString() {
         StringBuilder builder = new StringBuilder();
