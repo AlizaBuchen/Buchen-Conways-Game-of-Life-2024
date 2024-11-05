@@ -86,23 +86,25 @@ public class GameOfLifeComponentTest {
         assertTrue(board.isAlive(0, 2));
     }
 
-//    @Test
-//    public void pasteRle() throws IOException, UnsupportedFlavorException {
-//        //given
-//        GameOfLife model = mock(GameOfLife.class);
-//        GameOfLifeComponent view = mock(GameOfLifeComponent.class);
-//        GameOfLifeController controller = new GameOfLifeController(model, view);
-//        String rleData = """
-//            #C This is a glider.
-//            x = 3, y = 3
-//            bo$2bo$3o!
-//        """;
-//
-//        //when
-//        when(clipboard.getData(DataFlavor.stringFlavor)).thenReturn(rleData);
-//        controller.paste();
-//
-//        //then
-//        verify(view).repaint();
-//    }
+    /*
+    @Test
+    public void pasteRle() throws IOException, UnsupportedFlavorException {
+        //given
+        GameOfLife model = mock(GameOfLife.class);
+        GameOfLifeComponent view = mock(GameOfLifeComponent.class);
+        GameOfLifeController controller = new GameOfLifeController(model, view);
+        String rleData = """
+            #C This is a glider.
+            x = 3, y = 3
+            bo$2bo$3o!
+        """;
+
+        //when
+        when(clipboard.getData(DataFlavor.stringFlavor)).thenReturn(rleData);
+        controller.paste();
+
+        //then
+        verify(view).repaint();
+    }
+    */
 }
